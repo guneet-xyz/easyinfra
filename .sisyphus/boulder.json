@@ -31,10 +31,46 @@
       "task_key": "todo:8",
       "task_label": "8",
       "task_title": "pkg/config parser + validator (schema, kubeContext, cycle check)",
-      "session_id": "ses_1e8fa2f17ffeS3vcwx7zX7B5Jn",
+      "session_id": "ses_1e8efcc98ffenZbYvT51VsWcFv",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-05-11T12:51:22.197Z"
+    },
+    "todo:21": {
+      "task_key": "todo:21",
+      "task_label": "21",
+      "task_title": "E2E test harness",
+      "session_id": "ses_1e8e6b862ffeL1E3tuXdyvsVRL",
       "agent": "Sisyphus-Junior",
       "category": "unspecified-high",
-      "updated_at": "2026-05-11T12:33:10.288Z"
+      "updated_at": "2026-05-11T13:00:19.994Z"
+    },
+    "todo:22": {
+      "task_key": "todo:22",
+      "task_label": "22",
+      "task_title": "install.sh — POSIX sh installer with platform detection",
+      "session_id": "ses_1e8df273effeLKILhmkAnOa4oc",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-05-11T13:02:28.828Z"
+    },
+    "todo:27": {
+      "task_key": "todo:27",
+      "task_label": "27",
+      "task_title": "First release — push tag v0.1.0, verify artifacts",
+      "session_id": "ses_1e8dc6040ffe690IGSwuH1VBI0",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-05-11T13:10:35.802Z"
+    },
+    "final-wave:f1": {
+      "task_key": "final-wave:f1",
+      "task_label": "F1",
+      "task_title": "**Plan Compliance Audit** — `oracle`",
+      "session_id": "ses_1e8d61841ffe1gmWlyP1Nd52vD",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-05-11T13:13:00.562Z"
     }
   }
 }

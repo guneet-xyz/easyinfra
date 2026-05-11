@@ -1,3 +1,4 @@
+// Package paths provides utilities for managing easyinfra configuration and repository paths.
 package paths
 
 import (

@@ -161,7 +161,7 @@ func TestRestoreLatest(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		f.Close()
+		_ = f.Close()
 	}
 	apps := []config.AppConfig{
 		{Name: "alpha", Namespace: "alpha", PVCs: []string{"alpha-data"}},
@@ -216,7 +216,7 @@ func TestRestoreHappyPath(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	apps := []config.AppConfig{
 		{Name: "alpha", Namespace: "alpha", PVCs: []string{"alpha-data"}},
@@ -248,7 +248,7 @@ func TestRestoreScpFailure(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	wrapped := &failingRunner{inner: fake, failSubstr: "scp", failOnlyContains: "alpha-data.tar.gz"}
 	mgr.Runner = wrapped

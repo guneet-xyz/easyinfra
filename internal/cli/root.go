@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"github.com/guneet/easyinfra/internal/cli/k3s"
 	"github.com/spf13/cobra"
 )
 
@@ -31,6 +32,19 @@ driven by infra.yaml in your infrastructure repository.`,
 	cmd.PersistentFlags().BoolVar(&flags.confirmContext, "confirm-context", false, "proceed even if kubeContext in infra.yaml does not match current context")
 
 	cmd.AddCommand(newVersionCmd(version, commit, date))
+	cmd.AddCommand(newInitCmd(flags), newUpdateCmd(flags))
+	cmd.AddCommand(newUpgradeCmd(version))
+
+	k3sFlags := &k3s.RootFlags{}
+	k3sCmd := k3s.NewK3sCmd(k3sFlags)
+	k3sCmd.PersistentPreRunE = func(_ *cobra.Command, _ []string) error {
+		k3sFlags.Config = flags.config
+		k3sFlags.DryRun = flags.dryRun
+		k3sFlags.Verbose = flags.verbose
+		k3sFlags.ConfirmContext = flags.confirmContext
+		return nil
+	}
+	cmd.AddCommand(k3sCmd)
 
 	return cmd
 }

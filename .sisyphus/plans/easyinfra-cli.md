@@ -620,7 +620,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 8. pkg/config parser + validator (schema, kubeContext, cycle check)
+- [x] 8. pkg/config parser + validator (schema, kubeContext, cycle check)
 
   **What to do**:
   - `pkg/config/loader.go`:
@@ -692,7 +692,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 9. pkg/repo — git clone/pull wrapper for ~/.config/easyinfra/repo
+- [x] 9. pkg/repo — git clone/pull wrapper for ~/.config/easyinfra/repo
 
   **What to do**:
   - `pkg/repo/repo.go`:
@@ -745,7 +745,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 10. pkg/k8s — kubectl wrapper
+- [x] 10. pkg/k8s — kubectl wrapper
 
   **What to do**:
   - `pkg/k8s/client.go`:
@@ -795,7 +795,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 11. pkg/helm — helm wrapper
+- [x] 11. pkg/helm — helm wrapper
 
   **What to do**:
   - `pkg/helm/client.go`:
@@ -849,7 +849,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 12. pkg/backup — SSH/SCP wrapper + tar orchestration
+- [x] 12. pkg/backup — SSH/SCP wrapper + tar orchestration
 
   **What to do**:
   - `pkg/backup/backup.go`:
@@ -914,7 +914,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 13. pkg/release — GitHub API client (latest release lookup)
+- [x] 13. pkg/release — GitHub API client (latest release lookup)
 
   **What to do**:
   - `pkg/release/github.go`:
@@ -967,7 +967,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 14. pkg/selfupdate — wraps creativeprojects/go-selfupdate
+- [x] 14. pkg/selfupdate — wraps creativeprojects/go-selfupdate
 
   **What to do**:
   - `go get github.com/creativeprojects/go-selfupdate@latest`
@@ -1013,7 +1013,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 15. cmd init + cmd update (repo management)
+- [x] 15. cmd init + cmd update (repo management)
 
   **What to do**:
   - `internal/cli/init.go`: `easyinfra init <git-url>` cobra command
@@ -1073,7 +1073,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 16. cmd upgrade (self-upgrade)
+- [x] 16. cmd upgrade (self-upgrade)
 
   **What to do**:
   - `internal/cli/upgrade.go`: `easyinfra upgrade` cobra command
@@ -1123,7 +1123,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 17. cmd k3s install + upgrade + uninstall
+- [x] 17. cmd k3s install + upgrade + uninstall
 
   **What to do**:
   - `internal/cli/k3s/k3s.go`: parent `k3s` cobra command (subcommand group)
@@ -1193,7 +1193,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 18. cmd k3s validate
+- [x] 18. cmd k3s validate
 
   **What to do**:
   - `internal/cli/k3s/validate.go`: `easyinfra k3s validate [app...]`
@@ -1250,7 +1250,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 19. cmd k3s backup
+- [x] 19. cmd k3s backup
 
   **What to do**:
   - `internal/cli/k3s/backup.go`: `easyinfra k3s backup [app...]`
@@ -1300,7 +1300,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 20. cmd k3s restore
+- [x] 20. cmd k3s restore
 
   **What to do**:
   - `internal/cli/k3s/restore.go`: `easyinfra k3s restore [app...] --timestamp <ts>`
@@ -1352,7 +1352,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 21. E2E test harness
+- [x] 21. E2E test harness
 
   **What to do**:
   - `test/e2e/e2e_test.go` (build tag `e2e`):
@@ -1410,7 +1410,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 22. install.sh — POSIX sh installer with platform detection
+- [x] 22. install.sh — POSIX sh installer with platform detection
 
   **What to do**:
   - Create `install.sh` at repo root, POSIX-compatible (`#!/bin/sh`, no bashisms):
@@ -1484,7 +1484,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 23. .goreleaser.yml — 5-platform builds, checksums, archives
+- [x] 23. .goreleaser.yml — 5-platform builds, checksums, archives
 
   **What to do**:
   - Create `.goreleaser.yml`:
@@ -1578,7 +1578,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 24. .github/workflows/ci.yml — lint, vet, test, build verification
+- [x] 24. .github/workflows/ci.yml — lint, vet, test, build verification
 
   **What to do**:
   - Create `.github/workflows/ci.yml`:
@@ -1673,7 +1673,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 25. .github/workflows/release.yml — tag-triggered GoReleaser
+- [x] 25. .github/workflows/release.yml — tag-triggered GoReleaser
 
   **What to do**:
   - Create `.github/workflows/release.yml`:
@@ -1733,7 +1733,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 26. README full content — install/quickstart/commands/config reference
+- [x] 26. README full content — install/quickstart/commands/config reference
 
   **What to do**:
   - Replace placeholders in `README.md` (skeleton from T7):
@@ -1794,7 +1794,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 27. First release — push tag v0.1.0, verify artifacts
+- [x] 27. First release — push tag v0.1.0, verify artifacts
 
   **What to do**:
   - Verify everything: `make lint test e2e` clean

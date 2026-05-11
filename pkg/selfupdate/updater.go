@@ -1,3 +1,4 @@
+// Package selfupdate provides utilities for self-updating the easyinfra binary.
 package selfupdate
 
 import (

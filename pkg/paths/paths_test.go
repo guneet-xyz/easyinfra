@@ -10,10 +10,10 @@ import (
 func TestConfigDirDefault(t *testing.T) {
 	// Unset XDG_CONFIG_HOME to test default behavior
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -31,12 +31,12 @@ func TestConfigDirXDGOverride(t *testing.T) {
 	// Set XDG_CONFIG_HOME to test override
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
 	xdgTest := "/tmp/xdg-test-easyinfra"
-	os.Setenv("XDG_CONFIG_HOME", xdgTest)
+	_ = os.Setenv("XDG_CONFIG_HOME", xdgTest)
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -54,10 +54,10 @@ func TestConfigDirXDGOverride(t *testing.T) {
 func TestRepoDirEndsWithRepo(t *testing.T) {
 	// Unset XDG_CONFIG_HOME to use default
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -74,10 +74,10 @@ func TestRepoDirEndsWithRepo(t *testing.T) {
 func TestDefaultConfigPathEndsWithInfraYaml(t *testing.T) {
 	// Unset XDG_CONFIG_HOME to use default
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -149,12 +149,12 @@ func TestBinaryDir(t *testing.T) {
 func TestRepoDirWithXDGOverride(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
 	xdgTest := "/tmp/xdg-test-repo"
-	os.Setenv("XDG_CONFIG_HOME", xdgTest)
+	_ = os.Setenv("XDG_CONFIG_HOME", xdgTest)
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -172,12 +172,12 @@ func TestRepoDirWithXDGOverride(t *testing.T) {
 func TestDefaultConfigPathWithXDGOverride(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
 	xdgTest := "/tmp/xdg-test-config"
-	os.Setenv("XDG_CONFIG_HOME", xdgTest)
+	_ = os.Setenv("XDG_CONFIG_HOME", xdgTest)
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -194,10 +194,10 @@ func TestDefaultConfigPathWithXDGOverride(t *testing.T) {
 
 func TestConfigDirConsistency(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -216,12 +216,12 @@ func TestConfigDirConsistency(t *testing.T) {
 func TestPathChaining(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
 	xdgTest := "/tmp/xdg-chain-test"
-	os.Setenv("XDG_CONFIG_HOME", xdgTest)
+	_ = os.Setenv("XDG_CONFIG_HOME", xdgTest)
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -251,10 +251,10 @@ func TestPathChaining(t *testing.T) {
 
 func TestConfigDirEmptyXDG(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Setenv("XDG_CONFIG_HOME", "")
+	_ = os.Setenv("XDG_CONFIG_HOME", "")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -270,12 +270,12 @@ func TestConfigDirEmptyXDG(t *testing.T) {
 
 func TestRepoDirErrorPropagation(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Setenv("XDG_CONFIG_HOME", "/tmp/valid-xdg")
+	_ = os.Setenv("XDG_CONFIG_HOME", "/tmp/valid-xdg")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -291,12 +291,12 @@ func TestRepoDirErrorPropagation(t *testing.T) {
 
 func TestDefaultConfigPathErrorPropagation(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Setenv("XDG_CONFIG_HOME", "/tmp/valid-xdg-cfg")
+	_ = os.Setenv("XDG_CONFIG_HOME", "/tmp/valid-xdg-cfg")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		} else {
-			os.Unsetenv("XDG_CONFIG_HOME")
+			_ = os.Unsetenv("XDG_CONFIG_HOME")
 		}
 	}()
 
@@ -312,10 +312,10 @@ func TestDefaultConfigPathErrorPropagation(t *testing.T) {
 
 func TestConfigDirWithMockedError(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -356,10 +356,10 @@ func TestBinaryDirWithMockedError(t *testing.T) {
 
 func TestRepoDirWithMockedConfigDirError(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 
@@ -382,10 +382,10 @@ func TestRepoDirWithMockedConfigDirError(t *testing.T) {
 
 func TestDefaultConfigPathWithMockedError(t *testing.T) {
 	oldXDG := os.Getenv("XDG_CONFIG_HOME")
-	os.Unsetenv("XDG_CONFIG_HOME")
+	_ = os.Unsetenv("XDG_CONFIG_HOME")
 	defer func() {
 		if oldXDG != "" {
-			os.Setenv("XDG_CONFIG_HOME", oldXDG)
+			_ = os.Setenv("XDG_CONFIG_HOME", oldXDG)
 		}
 	}()
 

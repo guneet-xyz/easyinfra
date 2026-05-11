@@ -67,8 +67,8 @@ func TestFakeRunnerRecordsCalls(t *testing.T) {
 		Responses: make(map[string]FakeResponse),
 	}
 
-	runner.Run(context.Background(), "echo", "hello")
-	runner.Run(context.Background(), "ls", "-la")
+	_, _, _ = runner.Run(context.Background(), "echo", "hello")
+	_, _, _ = runner.Run(context.Background(), "ls", "-la")
 
 	require.Len(t, runner.Calls, 2)
 	assert.Equal(t, "echo", runner.Calls[0].Name)

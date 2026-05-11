@@ -1,3 +1,4 @@
+// Package exec provides command execution utilities.
 package exec
 
 import (
@@ -27,14 +28,15 @@ type RealRunner struct {
 	Env     []string // additional env vars appended to os.Environ()
 }
 
+// Run executes a command and captures stdout/stderr.
 func (r *RealRunner) Run(ctx context.Context, name string, args ...string) (string, string, error) {
 	cmdStr := name + " " + strings.Join(args, " ")
 	if r.DryRun {
-		fmt.Fprintf(r.Stdout, "would run: %s\n", cmdStr)
+		_, _ = fmt.Fprintf(r.Stdout, "would run: %s\n", cmdStr)
 		return "", "", nil
 	}
 	if r.Verbose {
-		fmt.Fprintf(r.Stderr, "running: %s\n", cmdStr)
+		_, _ = fmt.Fprintf(r.Stderr, "running: %s\n", cmdStr)
 	}
 	cmd := exec.CommandContext(ctx, name, args...)
 	if len(r.Env) > 0 {
@@ -47,14 +49,15 @@ func (r *RealRunner) Run(ctx context.Context, name string, args ...string) (stri
 	return strings.TrimSpace(outBuf.String()), strings.TrimSpace(errBuf.String()), err
 }
 
+// RunInteractive executes a command streaming stdout/stderr to the configured writers.
 func (r *RealRunner) RunInteractive(ctx context.Context, name string, args ...string) error {
 	cmdStr := name + " " + strings.Join(args, " ")
 	if r.DryRun {
-		fmt.Fprintf(r.Stdout, "would run: %s\n", cmdStr)
+		_, _ = fmt.Fprintf(r.Stdout, "would run: %s\n", cmdStr)
 		return nil
 	}
 	if r.Verbose {
-		fmt.Fprintf(r.Stderr, "running: %s\n", cmdStr)
+		_, _ = fmt.Fprintf(r.Stderr, "running: %s\n", cmdStr)
 	}
 	cmd := exec.CommandContext(ctx, name, args...)
 	if len(r.Env) > 0 {
@@ -89,7 +92,8 @@ func (f *FakeRunner) key(name string, args []string) string {
 	return strings.Join(append([]string{name}, args...), " ")
 }
 
-func (f *FakeRunner) Run(ctx context.Context, name string, args ...string) (string, string, error) {
+// Run executes a command and returns the canned response.
+func (f *FakeRunner) Run(_ context.Context, name string, args ...string) (string, string, error) {
 	f.Calls = append(f.Calls, FakeCall{Name: name, Args: args})
 	if resp, ok := f.Responses[f.key(name, args)]; ok {
 		return resp.Stdout, resp.Stderr, resp.Err
@@ -97,6 +101,7 @@ func (f *FakeRunner) Run(ctx context.Context, name string, args ...string) (stri
 	return f.Default.Stdout, f.Default.Stderr, f.Default.Err
 }
 
+// RunInteractive executes a command and returns the error from Run.
 func (f *FakeRunner) RunInteractive(ctx context.Context, name string, args ...string) error {
 	_, _, err := f.Run(ctx, name, args...)
 	return err
