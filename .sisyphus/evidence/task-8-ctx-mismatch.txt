@@ -1,0 +1,4 @@
+=== RUN   TestVerifyKubeContextMismatch
+--- PASS: TestVerifyKubeContextMismatch (0.00s)
+PASS
+ok  	github.com/guneet/easyinfra/pkg/config	1.265s
