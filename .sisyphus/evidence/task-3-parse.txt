@@ -1,8 +1,0 @@
-=== RUN   TestExampleParses
-    types_test.go:31: ✓ 11 apps loaded from example_infra.yaml
---- PASS: TestExampleParses (0.00s)
-=== RUN   TestRoundTrip
-    types_test.go:86: ✓ Round-trip successful, no field loss
---- PASS: TestRoundTrip (0.00s)
-PASS
-ok  	github.com/guneet/easyinfra/pkg/config	(cached)

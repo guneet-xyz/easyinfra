@@ -1,5 +1,0 @@
-=== RUN   TestLatestReleaseRateLimit
---- PASS: TestLatestReleaseRateLimit (0.00s)
-PASS
-coverage: 40.5% of statements
-ok  	github.com/guneet/easyinfra/pkg/release	1.301s	coverage: 40.5% of statements

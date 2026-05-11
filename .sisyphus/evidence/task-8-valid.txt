@@ -1,4 +1,0 @@
-=== RUN   TestLoadValid
---- PASS: TestLoadValid (0.00s)
-PASS
-ok  	github.com/guneet/easyinfra/pkg/config	1.614s

@@ -1,5 +1,0 @@
-=== RUN   TestBackupPartialFailure
---- PASS: TestBackupPartialFailure (0.00s)
-PASS
-coverage: 42.6% of statements
-ok  	github.com/guneet/easyinfra/pkg/backup	1.262s	coverage: 42.6% of statements
