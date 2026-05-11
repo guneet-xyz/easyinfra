@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 func newFake(stdout string, err error) *exec.FakeRunner {

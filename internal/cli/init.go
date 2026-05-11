@@ -3,9 +3,9 @@ package cli
 import (
 	"fmt"
 
-	"github.com/guneet/easyinfra/pkg/exec"
-	"github.com/guneet/easyinfra/pkg/paths"
-	"github.com/guneet/easyinfra/pkg/repo"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/paths"
+	"github.com/guneet-xyz/easyinfra/pkg/repo"
 	"github.com/spf13/cobra"
 )
 

@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/config"
-	"github.com/guneet/easyinfra/pkg/helm"
-	"github.com/guneet/easyinfra/pkg/paths"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
+	"github.com/guneet-xyz/easyinfra/pkg/helm"
+	"github.com/guneet-xyz/easyinfra/pkg/paths"
 	"github.com/spf13/cobra"
 )
 

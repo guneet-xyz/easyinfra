@@ -32,7 +32,7 @@ func TestLatestReleaseSuccess(t *testing.T) {
 		PublishedAt: time.Now(),
 	}
 	client, _ := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
-		require.Equal(t, "/repos/guneet/easyinfra/releases/latest", r.URL.Path)
+		require.Equal(t, "/repos/guneet-xyz/easyinfra/releases/latest", r.URL.Path)
 		require.Equal(t, "application/vnd.github+json", r.Header.Get("Accept"))
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(want)

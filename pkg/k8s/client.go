@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 // Client wraps kubectl commands.

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/config"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
 	"github.com/spf13/cobra"
 )
 

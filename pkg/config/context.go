@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	execpkg "github.com/guneet/easyinfra/pkg/exec"
+	execpkg "github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 // VerifyKubeContext checks that the current kubectl context matches cfg.KubeContext.

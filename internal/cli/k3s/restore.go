@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/backup"
-	"github.com/guneet/easyinfra/pkg/config"
-	"github.com/guneet/easyinfra/pkg/k8s"
-	"github.com/guneet/easyinfra/pkg/paths"
+	"github.com/guneet-xyz/easyinfra/pkg/backup"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
+	"github.com/guneet-xyz/easyinfra/pkg/k8s"
+	"github.com/guneet-xyz/easyinfra/pkg/paths"
 	"github.com/spf13/cobra"
 )
 

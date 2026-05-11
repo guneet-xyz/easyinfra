@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	execpkg "github.com/guneet/easyinfra/pkg/exec"
+	execpkg "github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 const testdataInfra = "../../testdata/infra"

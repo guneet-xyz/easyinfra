@@ -96,7 +96,7 @@ func TestCheckResultCreation(t *testing.T) {
 			name:          "update available",
 			latestVersion: "v2.0.0",
 			hasUpdate:     true,
-			downloadURL:   "https://github.com/guneet/easyinfra/releases/download/v2.0.0/easyinfra",
+			downloadURL:   "https://github.com/guneet-xyz/easyinfra/releases/download/v2.0.0/easyinfra",
 		},
 		{
 			name:          "no update available",
@@ -230,7 +230,7 @@ func TestCheckResultHasUpdateTrue(t *testing.T) {
 	r := &CheckResult{
 		LatestVersion: "v2.0.0",
 		HasUpdate:     true,
-		DownloadURL:   "https://github.com/guneet/easyinfra/releases/download/v2.0.0/easyinfra",
+		DownloadURL:   "https://github.com/guneet-xyz/easyinfra/releases/download/v2.0.0/easyinfra",
 	}
 	require.True(t, r.HasUpdate)
 	require.Equal(t, "v2.0.0", r.LatestVersion)
@@ -383,7 +383,7 @@ func TestGitHubRepositoryGetWithVariousRepos(t *testing.T) {
 		owner string
 		repo  string
 	}{
-		{"guneet/easyinfra", "guneet", "easyinfra"},
+		{"guneet-xyz/easyinfra", "guneet", "easyinfra"},
 		{"other/repo", "other", "repo"},
 		{"user-123/repo-456", "user-123", "repo-456"},
 	}

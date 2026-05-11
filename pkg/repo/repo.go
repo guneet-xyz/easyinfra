@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 // Status holds information about the current state of the repo.

@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"github.com/guneet/easyinfra/internal/cli/k3s"
+	"github.com/guneet-xyz/easyinfra/internal/cli/k3s"
 	"github.com/spf13/cobra"
 )
 

@@ -2,8 +2,8 @@
 
 > Config-driven CLI for managing k3s infrastructure via Helm.
 
-[![CI](https://github.com/guneet/easyinfra/actions/workflows/ci.yml/badge.svg)](https://github.com/guneet/easyinfra/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/guneet/easyinfra)](https://github.com/guneet/easyinfra/releases/latest)
+[![CI](https://github.com/guneet-xyz/easyinfra/actions/workflows/ci.yml/badge.svg)](https://github.com/guneet-xyz/easyinfra/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/guneet-xyz/easyinfra)](https://github.com/guneet-xyz/easyinfra/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 `easyinfra` reads a single `infra.yaml` from a git repo you control and turns it into Helm releases on a k3s cluster. It handles install, upgrade, uninstall, validation, and PVC backup/restore over SSH.
@@ -13,7 +13,7 @@
 ### One-liner (Linux, macOS)
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/guneet/easyinfra/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/guneet-xyz/easyinfra/main/install.sh | sh
 ```
 
 The script detects your OS and architecture, downloads the matching binary, verifies the SHA-256 checksum, and installs to `/usr/local/bin/easyinfra` (override with `INSTALL_DIR=...`).
@@ -22,7 +22,7 @@ Supported platforms: `linux/amd64`, `linux/arm64`, `darwin/amd64`, `darwin/arm64
 
 ### Manual download
 
-Grab the archive for your platform from the [releases page](https://github.com/guneet/easyinfra/releases/latest), then verify and extract:
+Grab the archive for your platform from the [releases page](https://github.com/guneet-xyz/easyinfra/releases/latest), then verify and extract:
 
 ```sh
 sha256sum -c easyinfra_<version>_<os>_<arch>.tar.gz.sha256
@@ -33,7 +33,7 @@ mv easyinfra /usr/local/bin/
 ### go install
 
 ```sh
-go install github.com/guneet/easyinfra/cmd/easyinfra@latest
+go install github.com/guneet-xyz/easyinfra/cmd/easyinfra@latest
 ```
 
 ## Quickstart
@@ -117,7 +117,7 @@ apps:
 ## Development
 
 ```sh
-git clone https://github.com/guneet/easyinfra.git
+git clone https://github.com/guneet-xyz/easyinfra.git
 cd easyinfra
 make build    # builds bin/easyinfra
 make test     # unit tests with race detector

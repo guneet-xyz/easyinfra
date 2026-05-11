@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/guneet/easyinfra/pkg/config"
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 func newClient(fr *exec.FakeRunner) *Client {

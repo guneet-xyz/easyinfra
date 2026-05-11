@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/guneet/easyinfra/pkg/exec"
-	"github.com/guneet/easyinfra/pkg/repo"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/repo"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/require"
 )

@@ -2,7 +2,7 @@
 package main
 
 import (
-	"github.com/guneet/easyinfra/internal/cli"
+	"github.com/guneet-xyz/easyinfra/internal/cli"
 )
 
 // Build-time variables set via ldflags.

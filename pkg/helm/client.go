@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/guneet/easyinfra/pkg/config"
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 )
 
 // Client wraps helm commands.

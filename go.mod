@@ -1,4 +1,4 @@
-module github.com/guneet/easyinfra
+module github.com/guneet-xyz/easyinfra
 
 go 1.24.11
 

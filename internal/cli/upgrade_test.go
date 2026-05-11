@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/guneet/easyinfra/pkg/selfupdate"
+	"github.com/guneet-xyz/easyinfra/pkg/selfupdate"
 	"github.com/stretchr/testify/require"
 )
 

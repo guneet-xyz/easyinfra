@@ -8,7 +8,7 @@
 
 set -eu
 
-REPO="guneet/easyinfra"
+REPO="guneet-xyz/easyinfra"
 BINARY="easyinfra"
 VERSION="${EASYINFRA_VERSION:-latest}"
 INSTALL_DIR_OVERRIDE="${INSTALL_DIR:-}"

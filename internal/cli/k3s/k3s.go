@@ -1,7 +1,7 @@
 package k3s
 
 import (
-	"github.com/guneet/easyinfra/pkg/exec"
+	"github.com/guneet-xyz/easyinfra/pkg/exec"
 	"github.com/spf13/cobra"
 )
 
