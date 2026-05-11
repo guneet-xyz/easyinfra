@@ -205,7 +205,9 @@ main() {
     fi
 
     tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t easyinfra)
-    [ -n "$tmpdir" ] && [ -d "$tmpdir" ] || die "failed to create temp directory"
+    if [ -z "$tmpdir" ] || [ ! -d "$tmpdir" ]; then
+        die "failed to create temp directory"
+    fi
     # shellcheck disable=SC2064
     trap "rm -rf \"$tmpdir\"" EXIT INT TERM HUP
 

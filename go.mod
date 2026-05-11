@@ -1,6 +1,6 @@
 module github.com/guneet/easyinfra
 
-go 1.26.2
+go 1.24.11
 
 require (
 	github.com/creativeprojects/go-selfupdate v1.5.2

@@ -14,6 +14,10 @@ type Updater struct {
 	Owner          string
 	Repo           string
 	CurrentVersion string
+
+	// detector is an optional injection point for testing. If nil, a real
+	// go-selfupdate-backed detector is constructed at call time.
+	detector releaseDetector
 }
 
 // CheckResult holds the result of a version check.
@@ -23,30 +27,80 @@ type CheckResult struct {
 	DownloadURL   string
 }
 
-// Check queries GitHub Releases for the latest version without applying any update.
-func (u *Updater) Check(ctx context.Context) (*CheckResult, error) {
-	// Create a GitHub source with default config
+// releaseInfo abstracts a release returned by the upstream library so that
+// tests can supply fakes without needing to construct a *selfupdate.Release
+// (which has unexported fields).
+type releaseInfo struct {
+	Version     string
+	AssetURL    string
+	GreaterThan func(current string) bool
+	// raw holds the underlying release for use by UpdateTo. It may be nil in
+	// tests where UpdateTo is faked out.
+	raw *selfupdate.Release
+}
+
+// releaseDetector is the small surface of the upstream library that Updater
+// needs. It is satisfied by a real go-selfupdate-backed implementation in
+// production, and can be faked in tests.
+type releaseDetector interface {
+	DetectLatest(ctx context.Context, owner, repo string) (*releaseInfo, bool, error)
+	UpdateTo(ctx context.Context, info *releaseInfo, cmdPath string) error
+}
+
+// realDetector wraps the upstream go-selfupdate library.
+type realDetector struct {
+	updater *selfupdate.Updater
+}
+
+func newRealDetector() (*realDetector, error) {
 	source, err := selfupdate.NewGitHubSource(selfupdate.GitHubConfig{})
 	if err != nil {
 		return nil, fmt.Errorf("creating GitHub source: %w", err)
 	}
-
-	// Create updater with the GitHub source
-	updater, err := selfupdate.NewUpdater(selfupdate.Config{
-		Source: source,
-	})
+	updater, err := selfupdate.NewUpdater(selfupdate.Config{Source: source})
 	if err != nil {
 		return nil, fmt.Errorf("creating updater: %w", err)
 	}
+	return &realDetector{updater: updater}, nil
+}
 
-	// Create a repository reference
-	repo := &GitHubRepository{
-		Owner: u.Owner,
-		Repo:  u.Repo,
+func (d *realDetector) DetectLatest(ctx context.Context, owner, repo string) (*releaseInfo, bool, error) {
+	r := &GitHubRepository{Owner: owner, Repo: repo}
+	latest, found, err := d.updater.DetectLatest(ctx, r)
+	if err != nil {
+		return nil, false, err
+	}
+	if !found || latest == nil {
+		return nil, false, nil
+	}
+	return &releaseInfo{
+		Version:     latest.Version(),
+		AssetURL:    latest.AssetURL,
+		GreaterThan: latest.GreaterThan,
+		raw:         latest,
+	}, true, nil
+}
+
+func (d *realDetector) UpdateTo(ctx context.Context, info *releaseInfo, cmdPath string) error {
+	return d.updater.UpdateTo(ctx, info.raw, cmdPath)
+}
+
+// getDetector returns the injected detector or constructs a real one.
+func (u *Updater) getDetector() (releaseDetector, error) {
+	if u.detector != nil {
+		return u.detector, nil
+	}
+	return newRealDetector()
+}
+
+// Check queries GitHub Releases for the latest version without applying any update.
+func (u *Updater) Check(ctx context.Context) (*CheckResult, error) {
+	detector, err := u.getDetector()
+	if err != nil {
+		return nil, err
 	}
 
-	// Detect latest release
-	latest, found, err := updater.DetectLatest(ctx, repo)
+	latest, found, err := detector.DetectLatest(ctx, u.Owner, u.Repo)
 	if err != nil {
 		return nil, fmt.Errorf("checking for updates: %w", err)
 	}
@@ -56,7 +110,7 @@ func (u *Updater) Check(ctx context.Context) (*CheckResult, error) {
 
 	hasUpdate := latest.GreaterThan(u.CurrentVersion)
 	return &CheckResult{
-		LatestVersion: latest.Version(),
+		LatestVersion: latest.Version,
 		HasUpdate:     hasUpdate,
 		DownloadURL:   latest.AssetURL,
 	}, nil
@@ -65,28 +119,12 @@ func (u *Updater) Check(ctx context.Context) (*CheckResult, error) {
 // Update downloads and applies the latest release, replacing the current binary.
 // Returns the new version string.
 func (u *Updater) Update(ctx context.Context) (string, error) {
-	// Create a GitHub source with default config
-	source, err := selfupdate.NewGitHubSource(selfupdate.GitHubConfig{})
+	detector, err := u.getDetector()
 	if err != nil {
-		return "", fmt.Errorf("creating GitHub source: %w", err)
+		return "", err
 	}
 
-	// Create updater with the GitHub source
-	updater, err := selfupdate.NewUpdater(selfupdate.Config{
-		Source: source,
-	})
-	if err != nil {
-		return "", fmt.Errorf("creating updater: %w", err)
-	}
-
-	// Create a repository reference
-	repo := &GitHubRepository{
-		Owner: u.Owner,
-		Repo:  u.Repo,
-	}
-
-	// Detect latest release
-	latest, found, err := updater.DetectLatest(ctx, repo)
+	latest, found, err := detector.DetectLatest(ctx, u.Owner, u.Repo)
 	if err != nil {
 		return "", fmt.Errorf("detecting latest release: %w", err)
 	}
@@ -94,18 +132,16 @@ func (u *Updater) Update(ctx context.Context) (string, error) {
 		return u.CurrentVersion, nil // already up to date
 	}
 
-	// Get the current executable path
 	exe, err := os.Executable()
 	if err != nil {
 		return "", fmt.Errorf("finding current executable: %w", err)
 	}
 
-	// Apply the update
-	if err := updater.UpdateTo(ctx, latest, exe); err != nil {
+	if err := detector.UpdateTo(ctx, latest, exe); err != nil {
 		return "", fmt.Errorf("applying update: %w", err)
 	}
 
-	return latest.Version(), nil
+	return latest.Version, nil
 }
 
 // GitHubRepository implements the Repository interface for GitHub.
