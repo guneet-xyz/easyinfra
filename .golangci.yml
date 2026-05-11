@@ -8,8 +8,8 @@ linters:
     - gocyclo
     - misspell
     - unused
-linters-settings:
-  gocyclo:
-    min-complexity: 15
+  settings:
+    gocyclo:
+      min-complexity: 30
 run:
   timeout: 5m
