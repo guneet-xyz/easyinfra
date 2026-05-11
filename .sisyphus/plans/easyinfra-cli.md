@@ -232,7 +232,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 > Implementation + Test = ONE Task. TDD: write failing test first, then minimal impl, then refactor.
 > EVERY task includes Recommended Agent Profile + Parallelization + QA Scenarios.
 
-- [ ] 1. Repo scaffolding (go.mod, Makefile, .gitignore, LICENSE)
+- [x] 1. Repo scaffolding (go.mod, Makefile, .gitignore, LICENSE)
 
   **What to do**:
   - `cd /Users/guneet/projects/easyinfra && git init`
@@ -341,7 +341,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 3. pkg/config types + infra.yaml schema definition
+- [x] 3. pkg/config types + infra.yaml schema definition
 
   **What to do**:
   - Create `pkg/config/types.go` with structs (use `yaml:"..."` tags for `gopkg.in/yaml.v3`):
@@ -418,7 +418,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 4. pkg/paths — XDG/config path helpers
+- [x] 4. pkg/paths — XDG/config path helpers
 
   **What to do**:
   - Create `pkg/paths/paths.go` with functions:
@@ -469,7 +469,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 5. pkg/exec — exec.Command wrapper with logging + dry-run support
+- [x] 5. pkg/exec — exec.Command wrapper with logging + dry-run support
 
   **What to do**:
   - Create `pkg/exec/runner.go`:
@@ -528,7 +528,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 6. testdata/ fixtures — mini infra.yaml + fake helm/kubectl scripts
+- [x] 6. testdata/ fixtures — mini infra.yaml + fake helm/kubectl scripts
 
   **What to do**:
   - `testdata/infra/infra.yaml` — minimal config: 2 apps (`alpha`, `beta`), `kubeContext: test-ctx`, fake postRenderer (`echo` with args `noop`)
@@ -580,7 +580,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 7. README skeleton + CONTRIBUTING + LICENSE verification
+- [x] 7. README skeleton + CONTRIBUTING + LICENSE verification
 
   **What to do**:
   - Create `README.md` skeleton with sections (filled in T26):

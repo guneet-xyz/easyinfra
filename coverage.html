@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>paths: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/guneet/easyinfra/pkg/paths/paths.go (78.9%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package paths
+
+import (
+        "os"
+        "path/filepath"
+)
+
+// ConfigDir returns the easyinfra config directory.
+// Respects $XDG_CONFIG_HOME on Linux/macOS, %AppData% on Windows (via os.UserConfigDir).
+func ConfigDir() (string, error) <span class="cov8" title="1">{
+        if xdg := os.Getenv("XDG_CONFIG_HOME"); xdg != "" </span><span class="cov8" title="1">{
+                return filepath.Join(xdg, "easyinfra"), nil
+        }</span>
+        <span class="cov8" title="1">base, err := os.UserConfigDir()
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov8" title="1">return filepath.Join(base, "easyinfra"), nil</span>
+}
+
+// RepoDir returns the path where the infra repo is cloned.
+func RepoDir() (string, error) <span class="cov8" title="1">{
+        cfg, err := ConfigDir()
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov8" title="1">return filepath.Join(cfg, "repo"), nil</span>
+}
+
+// DefaultConfigPath returns the default infra.yaml path inside the cloned repo.
+func DefaultConfigPath() (string, error) <span class="cov8" title="1">{
+        repo, err := RepoDir()
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov8" title="1">return filepath.Join(repo, "infra.yaml"), nil</span>
+}
+
+// BinaryDir returns the directory containing the current executable.
+func BinaryDir() (string, error) <span class="cov8" title="1">{
+        exe, err := os.Executable()
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov8" title="1">return filepath.Dir(exe), nil</span>
+}
+
+// EnsureDir creates the directory (and parents) if it does not exist.
+func EnsureDir(path string) error <span class="cov8" title="1">{
+        return os.MkdirAll(path, 0755)
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

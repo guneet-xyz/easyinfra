@@ -1,0 +1,3 @@
+# Shared values for testdata fixtures
+shared:
+  clusterName: test-cluster

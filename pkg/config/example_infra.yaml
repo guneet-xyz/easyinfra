@@ -1,0 +1,73 @@
+kubeContext: pax
+defaults:
+  postRenderer:
+    command: obscuro
+    args:
+      - inject
+  valueFiles:
+    - values-shared.yaml
+backup:
+  remoteHost: pax
+  remoteTmp: /tmp/k3s-backups
+  localDir: backups
+apps:
+  - name: caddy
+    chart: apps/caddy
+    namespace: caddy
+    order: 1
+    pvcs:
+      - caddy-data
+  - name: registry
+    chart: apps/registry
+    namespace: registry
+    order: 2
+    pvcs:
+      - registry-data
+  - name: walls
+    chart: apps/walls
+    namespace: walls
+    order: 3
+    pvcs:
+      - walls-postgres-data
+    dependsOn:
+      - caddy
+      - registry
+  - name: headlamp
+    chart: apps/headlamp
+    namespace: headlamp
+    order: 4
+  - name: litellm
+    chart: apps/litellm
+    namespace: litellm
+    order: 5
+    pvcs:
+      - litellm-data
+      - litellm-postgres-data
+  - name: openwebui
+    chart: apps/openwebui
+    namespace: openwebui
+    order: 6
+    pvcs:
+      - openwebui-data
+  - name: infisical
+    chart: apps/infisical
+    namespace: infisical
+    order: 7
+    pvcs:
+      - infisical-postgres-data
+  - name: portainer
+    chart: apps/portainer
+    namespace: portainer
+    order: 8
+  - name: homepage
+    chart: apps/homepage
+    namespace: homepage
+    order: 9
+  - name: tailscale
+    chart: apps/tailscale
+    namespace: tailscale
+    order: 10
+  - name: demo
+    chart: apps/demo
+    namespace: demo
+    order: 11

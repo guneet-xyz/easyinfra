@@ -1,0 +1,26 @@
+kubeContext: test-ctx
+defaults:
+  postRenderer:
+    command: echo
+    args: [noop]
+  valueFiles:
+    - values-shared.yaml
+backup:
+  remoteHost: test-host
+  remoteTmp: /tmp/test-backups
+  localDir: testdata/backups
+apps:
+  - name: alpha
+    chart: charts/alpha
+    namespace: alpha
+    order: 1
+    valueFiles:
+      - charts/alpha/values.yaml
+    pvcs:
+      - alpha-data
+  - name: beta
+    chart: charts/beta
+    namespace: beta
+    order: 2
+    valueFiles:
+      - charts/beta/values.yaml
