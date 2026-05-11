@@ -50,7 +50,7 @@ changelog:
       - '^ci:'
 release:
   github:
-    owner: guneet-xyz
+    owner: guneet
     name: easyinfra
   draft: false
   prerelease: auto
