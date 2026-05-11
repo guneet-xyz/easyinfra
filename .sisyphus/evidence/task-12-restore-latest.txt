@@ -1,0 +1,5 @@
+=== RUN   TestRestoreLatest
+--- PASS: TestRestoreLatest (0.00s)
+PASS
+coverage: 50.4% of statements
+ok  	github.com/guneet/easyinfra/pkg/backup	1.256s	coverage: 50.4% of statements

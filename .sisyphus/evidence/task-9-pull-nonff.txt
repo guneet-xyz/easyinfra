@@ -1,0 +1,4 @@
+=== RUN   TestPullNonFF
+--- PASS: TestPullNonFF (0.00s)
+PASS
+ok  	github.com/guneet/easyinfra/pkg/repo	1.252s

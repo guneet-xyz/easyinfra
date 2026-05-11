@@ -1,0 +1,4 @@
+=== RUN   TestCloneArgs
+--- PASS: TestCloneArgs (0.00s)
+PASS
+ok  	github.com/guneet/easyinfra/pkg/repo	1.550s

@@ -1,0 +1,5 @@
+=== RUN   TestGetPVLocalPathEmpty
+--- PASS: TestGetPVLocalPathEmpty (0.00s)
+PASS
+coverage: 22.4% of statements
+ok  	github.com/guneet/easyinfra/pkg/k8s	1.252s	coverage: 22.4% of statements

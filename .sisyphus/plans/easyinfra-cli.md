@@ -290,7 +290,7 @@ Wave FINAL (Review — runs in parallel after Wave 4):
 
 ---
 
-- [ ] 2. cmd/easyinfra/main.go + root cobra command + version subcommand
+- [x] 2. cmd/easyinfra/main.go + root cobra command + version subcommand
 
   **What to do**:
   - `go get github.com/spf13/cobra@latest github.com/spf13/viper@latest`

@@ -17,6 +17,24 @@
       "agent": "Sisyphus-Junior",
       "category": "quick",
       "updated_at": "2026-05-11T12:22:49.199Z"
+    },
+    "todo:2": {
+      "task_key": "todo:2",
+      "task_label": "2",
+      "task_title": "cmd/easyinfra/main.go + root cobra command + version subcommand",
+      "session_id": "ses_1e8ff852affegDiobfu99iI6o2",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-05-11T12:27:11.526Z"
+    },
+    "todo:8": {
+      "task_key": "todo:8",
+      "task_label": "8",
+      "task_title": "pkg/config parser + validator (schema, kubeContext, cycle check)",
+      "session_id": "ses_1e8fa2f17ffeS3vcwx7zX7B5Jn",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-05-11T12:33:10.288Z"
     }
   }
 }

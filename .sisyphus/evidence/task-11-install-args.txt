@@ -1,0 +1,20 @@
+--- PASS: TestIsNotLibraryChart (0.00s)
+=== RUN   TestIsLibraryChartMissing
+--- PASS: TestIsLibraryChartMissing (0.00s)
+=== RUN   TestInstallError
+--- PASS: TestInstallError (0.00s)
+=== RUN   TestUpgradeError
+--- PASS: TestUpgradeError (0.00s)
+=== RUN   TestUninstallError
+--- PASS: TestUninstallError (0.00s)
+=== RUN   TestTemplateError
+--- PASS: TestTemplateError (0.00s)
+=== RUN   TestPostRendererNil
+--- PASS: TestPostRendererNil (0.00s)
+=== RUN   TestGlobalArgs
+--- PASS: TestGlobalArgs (0.00s)
+=== RUN   TestInstallWithExtraArgs
+--- PASS: TestInstallWithExtraArgs (0.00s)
+PASS
+coverage: 100.0% of statements
+ok  	github.com/guneet/easyinfra/pkg/helm	(cached)	coverage: 100.0% of statements

@@ -1,0 +1,5 @@
+=== RUN   TestBackupOrchestration
+--- PASS: TestBackupOrchestration (0.00s)
+PASS
+coverage: 41.1% of statements
+ok  	github.com/guneet/easyinfra/pkg/backup	1.248s	coverage: 41.1% of statements

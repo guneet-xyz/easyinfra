@@ -1,0 +1,33 @@
+=== RUN   TestUpdaterFields
+--- PASS: TestUpdaterFields (0.00s)
+=== RUN   TestCheckResultFields
+--- PASS: TestCheckResultFields (0.00s)
+=== RUN   TestGitHubRepositoryGetSlug
+--- PASS: TestGitHubRepositoryGetSlug (0.00s)
+=== RUN   TestGitHubRepositoryGet
+--- PASS: TestGitHubRepositoryGet (0.00s)
+=== RUN   TestUpdaterCreation
+=== RUN   TestUpdaterCreation/valid_updater
+=== RUN   TestUpdaterCreation/different_owner
+--- PASS: TestUpdaterCreation (0.00s)
+    --- PASS: TestUpdaterCreation/valid_updater (0.00s)
+    --- PASS: TestUpdaterCreation/different_owner (0.00s)
+=== RUN   TestCheckResultCreation
+=== RUN   TestCheckResultCreation/update_available
+=== RUN   TestCheckResultCreation/no_update_available
+--- PASS: TestCheckResultCreation (0.00s)
+    --- PASS: TestCheckResultCreation/update_available (0.00s)
+    --- PASS: TestCheckResultCreation/no_update_available (0.00s)
+=== RUN   TestCheckWithInvalidGitHubConfig
+--- PASS: TestCheckWithInvalidGitHubConfig (0.24s)
+=== RUN   TestUpdateWithInvalidGitHubConfig
+--- PASS: TestUpdateWithInvalidGitHubConfig (0.04s)
+=== RUN   TestGitHubRepositoryMultipleInstances
+--- PASS: TestGitHubRepositoryMultipleInstances (0.00s)
+=== RUN   TestUpdaterWithEmptyVersion
+--- PASS: TestUpdaterWithEmptyVersion (0.00s)
+=== RUN   TestCheckResultWithEmptyURL
+--- PASS: TestCheckResultWithEmptyURL (0.00s)
+PASS
+coverage: 58.8% of statements
+ok  	github.com/guneet/easyinfra/pkg/selfupdate	(cached)	coverage: 58.8% of statements
