@@ -17,7 +17,7 @@ func newTestClient(t *testing.T, handler http.HandlerFunc) (*Client, *httptest.S
 	t.Cleanup(srv.Close)
 	return &Client{
 		BaseURL: srv.URL,
-		Owner:   "guneet",
+		Owner:   "guneet-xyz",
 		Repo:    "easyinfra",
 	}, srv
 }

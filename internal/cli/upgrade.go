@@ -17,7 +17,7 @@ type updaterInterface interface {
 
 var newUpdater = func(version string) updaterInterface {
 	return &selfupdate.Updater{
-		Owner:          "guneet",
+		Owner:          "guneet-xyz",
 		Repo:           "easyinfra",
 		CurrentVersion: version,
 	}
