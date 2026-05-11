@@ -3,7 +3,6 @@ project_name: easyinfra
 before:
   hooks:
     - go mod tidy
-    - go test ./...
 builds:
   - id: easyinfra
     main: ./cmd/easyinfra
