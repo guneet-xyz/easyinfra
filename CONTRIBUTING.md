@@ -46,3 +46,13 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 - All changes go directly to `main`
 - One commit per logical change
 - Run `make test lint` before committing
+
+## Releases
+
+Releases are fully automated:
+
+1. Push a Conventional Commit to `main` (`feat:`, `fix:`, or any commit with `BREAKING CHANGE:` in the body).
+2. The `Auto Tag` workflow analyzes commits since the last tag and creates a new `vX.Y.Z` tag (minor for `feat`, patch for `fix`, major for breaking).
+3. The new tag triggers `Release`, which runs goreleaser to build binaries and publish a GitHub release.
+
+Commits typed `chore:`, `docs:`, `test:`, `ci:`, `refactor:`, etc. produce **no release**. Add `[skip release]` to a commit message to suppress tagging explicitly.

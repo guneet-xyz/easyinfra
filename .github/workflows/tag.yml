@@ -1,0 +1,22 @@
+name: Auto Tag
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  tag:
+    # Skip merge/release-bot commits and any commit body containing [skip release]
+    if: "!contains(github.event.head_commit.message, '[skip release]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - id: bump
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false           # no tag if no feat/fix/BREAKING in commits since last tag
+          tag_prefix: v
+          release_branches: main
