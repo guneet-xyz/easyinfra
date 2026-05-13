@@ -324,16 +324,7 @@ func LoadV2SkipChartPaths(path string) (*InfraConfigV2, error) {
 func migrateV1ToV2(v1 *InfraConfig) *InfraConfigV2 {
 	apps := make([]AppConfigV2, len(v1.Apps))
 	for i, a := range v1.Apps {
-		apps[i] = AppConfigV2{
-			Name:         a.Name,
-			Chart:        a.Chart,
-			Namespace:    a.Namespace,
-			Order:        a.Order,
-			ValueFiles:   a.ValueFiles,
-			PostRenderer: a.PostRenderer,
-			DependsOn:    a.DependsOn,
-			PVCs:         a.PVCs,
-		}
+		apps[i] = AppConfigV2(a)
 	}
 	return &InfraConfigV2{
 		APIVersion: APIVersionV2,

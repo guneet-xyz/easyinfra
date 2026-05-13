@@ -65,14 +65,7 @@ func History(ctx context.Context, runner exec.Runner, release, namespace string,
 
 	out := make([]Revision, 0, len(raw))
 	for _, r := range raw {
-		out = append(out, Revision{
-			Revision:    r.Revision,
-			Updated:     r.Updated,
-			Status:      r.Status,
-			Chart:       r.Chart,
-			AppVersion:  r.AppVersion,
-			Description: r.Description,
-		})
+		out = append(out, Revision(r))
 	}
 	sort.Slice(out, func(i, j int) bool {
 		return out[i].Revision > out[j].Revision

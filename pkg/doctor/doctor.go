@@ -70,7 +70,7 @@ type BinaryCheck struct {
 func (c BinaryCheck) Name() string { return "binary:" + c.Binary }
 
 // Run executes the binary presence check.
-func (c BinaryCheck) Run(ctx context.Context) Result {
+func (c BinaryCheck) Run(_ context.Context) Result {
 	path, err := exec.LookPath(c.Binary)
 	if err != nil {
 		return Result{
@@ -135,7 +135,7 @@ type ConfigCheck struct {
 func (c ConfigCheck) Name() string { return "config" }
 
 // Run executes the config load and validation check.
-func (c ConfigCheck) Run(ctx context.Context) Result {
+func (c ConfigCheck) Run(_ context.Context) Result {
 	_, err := config.LoadV2(c.Path)
 	if err != nil {
 		return Result{
@@ -162,7 +162,7 @@ type ChartPathsCheck struct {
 func (c ChartPathsCheck) Name() string { return "chart-paths" }
 
 // Run executes the chart paths existence check.
-func (c ChartPathsCheck) Run(ctx context.Context) Result {
+func (c ChartPathsCheck) Run(_ context.Context) Result {
 	var missing []string
 	for _, app := range c.Cfg.Apps {
 		chartPath := filepath.Join(c.BaseDir, app.Chart)

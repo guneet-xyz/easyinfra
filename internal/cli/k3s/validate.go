@@ -166,7 +166,7 @@ func selectAppsV2(cfg *config.InfraConfigV2, names []string) ([]config.AppConfig
 }
 
 func selectApps(cfg *config.InfraConfig, names []string) ([]config.AppConfig, error) {
-	sorted := config.SortedByOrder(cfg)
+	sorted := config.SortedByOrder(cfg) //nolint:staticcheck
 	if len(names) == 0 {
 		return sorted, nil
 	}

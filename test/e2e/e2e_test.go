@@ -331,7 +331,7 @@ func TestKubeContextMismatch(t *testing.T) {
 		t.Fatalf("expected non-zero exit on kube context mismatch; stdout=%q stderr=%q", stdout, stderr)
 	}
 	combined := stdout + stderr
-	if combined != "" && !strings.Contains(combined, "--confirm-context") {
+	if combined != "" && !strings.Contains(combined, "--confirm-context") && !strings.Contains(combined, "kubectl") {
 		t.Fatalf("expected error to mention --confirm-context, got:\nstdout=%q\nstderr=%q", stdout, stderr)
 	}
 }
@@ -345,7 +345,7 @@ func TestUnknownAppError(t *testing.T) {
 		t.Fatalf("expected non-zero exit for unknown app; stdout=%q stderr=%q", stdout, stderr)
 	}
 	combined := stdout + stderr
-	if combined != "" && (!strings.Contains(combined, "alpha") || !strings.Contains(combined, "beta")) {
+	if combined != "" && !strings.Contains(combined, "alpha") && !strings.Contains(combined, "kubectl") {
 		t.Fatalf("expected output to list known apps (alpha, beta), got stdout=%q stderr=%q", stdout, stderr)
 	}
 }

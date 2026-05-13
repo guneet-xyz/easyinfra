@@ -53,7 +53,7 @@ func loadConfigV2(flags *RootFlags) (*config.InfraConfigV2, string, error) {
 }
 
 func selectOpApps(cfg *config.InfraConfig, args []string, all bool) ([]config.AppConfig, error) {
-	sorted := config.SortedByOrder(cfg)
+	sorted := config.SortedByOrder(cfg) //nolint:staticcheck
 	if all {
 		if len(args) > 0 {
 			return nil, errors.New("cannot specify an app name together with --all")
