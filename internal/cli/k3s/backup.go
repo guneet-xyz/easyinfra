@@ -53,14 +53,17 @@ func runBackupList(cmd *cobra.Command, flags *RootFlags, asJSON bool) error {
 		cfgPath = p
 	}
 
-	cfg, err := config.Load(cfgPath)
+	cfg, err := config.LoadV2(cfgPath)
 	if err != nil {
 		return err
 	}
 
-	entries, err := backup.List(cfg.Backup.LocalDir)
-	if err != nil {
-		return err
+	var entries []backup.BackupEntry
+	if cfg.Backup.LocalDir != "" {
+		entries, err = backup.List(cfg.Backup.LocalDir)
+		if err != nil {
+			return err
+		}
 	}
 
 	out := cmd.OutOrStdout()

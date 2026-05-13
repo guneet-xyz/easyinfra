@@ -76,13 +76,10 @@ func loadDepsConfig(flags *RootFlags) (*config.InfraConfigV2, string, error) {
 }
 
 func selectDepsApps(cfg *config.InfraConfigV2, df *depsFlags) ([]config.AppConfigV2, error) {
-	if !df.all && df.app == "" {
-		return nil, errors.New("specify --app <name> or --all")
-	}
 	if df.all && df.app != "" {
 		return nil, errors.New("cannot specify both --app and --all")
 	}
-	if df.all {
+	if df.app == "" {
 		return cfg.Apps, nil
 	}
 	for i := range cfg.Apps {
