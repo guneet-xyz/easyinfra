@@ -81,8 +81,8 @@ func Render(ctx context.Context, client *helm.Client, app config.AppConfigV2, cf
 	return Result{AppName: app.Name, Manifest: []byte(out)}, nil
 }
 
-// RenderAll renders all apps in cfg, skipping library charts.
-func RenderAll(ctx context.Context, client *helm.Client, cfg *config.InfraConfigV2, opts Options) ([]Result, error) {
+// All renders all apps in cfg, skipping library charts.
+func All(ctx context.Context, client *helm.Client, cfg *config.InfraConfigV2, opts Options) ([]Result, error) {
 	results := make([]Result, 0, len(cfg.Apps))
 	for _, app := range cfg.Apps {
 		res, err := Render(ctx, client, app, cfg, opts)

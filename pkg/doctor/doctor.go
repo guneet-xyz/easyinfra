@@ -18,8 +18,11 @@ import (
 type Status string
 
 const (
-	StatusOK   Status = "ok"
+	// StatusOK indicates the check passed.
+	StatusOK Status = "ok"
+	// StatusWarn indicates the check passed with a warning.
 	StatusWarn Status = "warn"
+	// StatusFail indicates the check failed.
 	StatusFail Status = "fail"
 )
 
@@ -63,8 +66,10 @@ type BinaryCheck struct {
 	InstallURL  string   // shown in Detail when missing
 }
 
+// Name returns the check identifier.
 func (c BinaryCheck) Name() string { return "binary:" + c.Binary }
 
+// Run executes the binary presence check.
 func (c BinaryCheck) Run(ctx context.Context) Result {
 	path, err := exec.LookPath(c.Binary)
 	if err != nil {
@@ -91,8 +96,10 @@ type KubeContextCheck struct {
 	Runner    execpkg.Runner
 }
 
+// Name returns the check identifier.
 func (c KubeContextCheck) Name() string { return "kube-context" }
 
+// Run executes the kube context reachability check.
 func (c KubeContextCheck) Run(ctx context.Context) Result {
 	if c.NoCluster {
 		return Result{
@@ -124,8 +131,10 @@ type ConfigCheck struct {
 	Path string
 }
 
+// Name returns the check identifier.
 func (c ConfigCheck) Name() string { return "config" }
 
+// Run executes the config load and validation check.
 func (c ConfigCheck) Run(ctx context.Context) Result {
 	_, err := config.LoadV2(c.Path)
 	if err != nil {
@@ -149,8 +158,10 @@ type ChartPathsCheck struct {
 	BaseDir string
 }
 
+// Name returns the check identifier.
 func (c ChartPathsCheck) Name() string { return "chart-paths" }
 
+// Run executes the chart paths existence check.
 func (c ChartPathsCheck) Run(ctx context.Context) Result {
 	var missing []string
 	for _, app := range c.Cfg.Apps {
@@ -179,8 +190,10 @@ type BackupConfigCheck struct {
 	Cfg *config.InfraConfigV2
 }
 
+// Name returns the check identifier.
 func (c BackupConfigCheck) Name() string { return "backup-config" }
 
+// Run executes the backup configuration sanity check.
 func (c BackupConfigCheck) Run(ctx context.Context) Result {
 	hasPVCs := false
 	for _, app := range c.Cfg.Apps {

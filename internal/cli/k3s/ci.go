@@ -183,7 +183,7 @@ func postRenderProbeResult(pr *config.PostRenderer, res postrender.Result) StepR
 
 func renderAllStep(ctx context.Context, runner exec.Runner, cfg *config.InfraConfigV2, baseDir string) StepResult {
 	client := &helm.Client{Runner: runner, Context: cfg.Cluster.KubeContext}
-	results, err := render.RenderAll(ctx, client, cfg, render.Options{
+	results, err := render.All(ctx, client, cfg, render.Options{
 		BaseDir:          baseDir,
 		PostRendererMode: render.PostRendererSkip,
 	})

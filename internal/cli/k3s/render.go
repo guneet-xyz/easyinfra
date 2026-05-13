@@ -93,7 +93,7 @@ func runRender(cmd *cobra.Command, flags *RootFlags, rf *renderFlags) error {
 	ctx := cmd.Context()
 
 	if rf.all {
-		results, err := render.RenderAll(ctx, client, cfg, opts)
+		results, err := render.All(ctx, client, cfg, opts)
 		if err != nil {
 			return err
 		}

@@ -156,7 +156,7 @@ func TestRenderSkipsLibraryChart(t *testing.T) {
 	assert.Empty(t, runner.calls, "library chart must not invoke helm")
 }
 
-func TestRenderAll(t *testing.T) {
+func TestAll(t *testing.T) {
 	baseDir := t.TempDir()
 	writeChart(t, baseDir, "apps/walls", "apiVersion: v2\nname: walls\nversion: 0.1.0\n")
 	writeChart(t, baseDir, "apps/lib", "apiVersion: v2\nname: lib\ntype: library\nversion: 0.1.0\n")
@@ -169,7 +169,7 @@ func TestRenderAll(t *testing.T) {
 	runner := &fakeRunner{response: "kind: Deployment\n"}
 	client := &helm.Client{Runner: runner}
 
-	results, err := RenderAll(context.Background(), client, cfg, Options{BaseDir: baseDir})
+	results, err := All(context.Background(), client, cfg, Options{BaseDir: baseDir})
 	require.NoError(t, err)
 	require.Len(t, results, 2)
 	assert.False(t, results[0].Skipped)
