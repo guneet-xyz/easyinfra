@@ -194,7 +194,7 @@ type BackupConfigCheck struct {
 func (c BackupConfigCheck) Name() string { return "backup-config" }
 
 // Run executes the backup configuration sanity check.
-func (c BackupConfigCheck) Run(ctx context.Context) Result {
+func (c BackupConfigCheck) Run(_ context.Context) Result {
 	hasPVCs := false
 	for _, app := range c.Cfg.Apps {
 		if len(app.PVCs) > 0 {
