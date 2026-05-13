@@ -12,25 +12,25 @@ import (
 
 func newHistoryCmd(flags *RootFlags) *cobra.Command {
 	var (
-		asJSON    bool
-		max       int
-		namespace string
+		asJSON       bool
+		maxRevisions int
+		namespace    string
 	)
 	cmd := &cobra.Command{
 		Use:   "history <app>",
 		Short: "Show helm release history for an app",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return runHistory(cmd, flags, args[0], namespace, max, asJSON)
+			return runHistory(cmd, flags, args[0], namespace, maxRevisions, asJSON)
 		},
 	}
 	cmd.Flags().BoolVar(&asJSON, "json", false, "emit JSON output")
-	cmd.Flags().IntVar(&max, "max", 10, "maximum number of revisions to return")
+	cmd.Flags().IntVar(&maxRevisions, "max", 10, "maximum number of revisions to return")
 	cmd.Flags().StringVar(&namespace, "namespace", "", "override namespace from config")
 	return cmd
 }
 
-func runHistory(cmd *cobra.Command, flags *RootFlags, appName, nsOverride string, max int, asJSON bool) error {
+func runHistory(cmd *cobra.Command, flags *RootFlags, appName, nsOverride string, maxRevisions int, asJSON bool) error {
 	cfg, _, err := loadConfig(flags)
 	if err != nil {
 		return err
@@ -48,7 +48,7 @@ func runHistory(cmd *cobra.Command, flags *RootFlags, appName, nsOverride string
 	}
 
 	runner := newRunner(cmd, flags)
-	revs, err := history.History(cmd.Context(), runner, app.Name, ns, max)
+	revs, err := history.History(cmd.Context(), runner, app.Name, ns, maxRevisions)
 	if err != nil {
 		return err
 	}

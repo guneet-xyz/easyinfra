@@ -12,12 +12,12 @@ type recordingRunner struct {
 	calls [][]string
 }
 
-func (r *recordingRunner) Run(ctx context.Context, cmd string, args ...string) (string, string, error) {
+func (r *recordingRunner) Run(_ context.Context, cmd string, args ...string) (string, string, error) {
 	r.calls = append(r.calls, append([]string{cmd}, args...))
 	return "", "", nil
 }
 
-func (r *recordingRunner) RunInteractive(ctx context.Context, cmd string, args ...string) error {
+func (r *recordingRunner) RunInteractive(_ context.Context, cmd string, args ...string) error {
 	r.calls = append(r.calls, append([]string{cmd}, args...))
 	return nil
 }

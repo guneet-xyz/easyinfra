@@ -45,7 +45,7 @@ func Update(ctx context.Context, runner exec.Runner, chartDir string) error {
 }
 
 // Check inspects Chart.yaml/Chart.lock and file:// dependencies for the given chart directory.
-func Check(ctx context.Context, chartDir string) ([]Issue, error) {
+func Check(_ context.Context, chartDir string) ([]Issue, error) {
 	chartYamlPath := filepath.Join(chartDir, "Chart.yaml")
 	data, err := os.ReadFile(chartYamlPath)
 	if err != nil {

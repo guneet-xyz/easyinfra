@@ -282,11 +282,41 @@ func LoadV2(path string) (*InfraConfigV2, error) {
 		if err := yaml.Unmarshal(data, &v1); err != nil {
 			return nil, fmt.Errorf("parsing config %s: %w", path, err)
 		}
+
 		if err := Validate(&v1, baseDir); err != nil {
 			return nil, err
 		}
 		emitV1DeprecationWarning(&v1)
-		return migrateV1ToV2(&v1), nil
+		return MigrateV1ToV2ForOrdering(&v1), nil
+	}
+}
+
+// LoadV2SkipChartPaths loads a v2 config but skips chart path validation.
+// This is useful for checking kubeContext before validating file paths.
+func LoadV2SkipChartPaths(path string) (*InfraConfigV2, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("reading config %s: %w", path, err)
+	}
+
+	switch DetectAPIVersion(data) {
+	case APIVersionV2:
+		var cfg InfraConfigV2
+		if err := yaml.Unmarshal(data, &cfg); err != nil {
+			return nil, fmt.Errorf("parsing config %s: %w", path, err)
+		}
+		applyV2Defaults(&cfg)
+		if err := ValidateV2SkipChartPaths(&cfg); err != nil {
+			return nil, err
+		}
+		return &cfg, nil
+	default:
+		var v1 InfraConfig
+		if err := yaml.Unmarshal(data, &v1); err != nil {
+			return nil, fmt.Errorf("parsing config %s: %w", path, err)
+		}
+
+		return MigrateV1ToV2ForOrdering(&v1), nil
 	}
 }
 
@@ -393,6 +423,61 @@ func ValidateV2(cfg *InfraConfigV2, baseDir string) error {
 		vfPath := filepath.Join(baseDir, vf)
 		if _, err := os.Stat(vfPath); err != nil {
 			errs = append(errs, fmt.Errorf("defaults.valueFiles: %q does not exist", vfPath))
+		}
+	}
+
+	for _, app := range cfg.Apps {
+		for _, dep := range app.DependsOn {
+			if !seen[dep] {
+				errs = append(errs, fmt.Errorf("app %q: dependsOn references unknown app %q", app.Name, dep))
+			}
+		}
+	}
+
+	hasPVCs := false
+	for _, app := range cfg.Apps {
+		if len(app.PVCs) > 0 {
+			hasPVCs = true
+			break
+		}
+	}
+	if hasPVCs && cfg.Backup.RemoteHost == "" {
+		errs = append(errs, fmt.Errorf("backup.remoteHost is required when apps have pvcs"))
+	}
+
+	if cycleErr := detectCyclesV2(cfg.Apps); cycleErr != nil {
+		errs = append(errs, cycleErr)
+	}
+
+	return errors.Join(errs...)
+}
+
+// ValidateV2SkipChartPaths validates a v2 config but skips chart path existence checks.
+// This is useful for checking kubeContext before validating file paths.
+func ValidateV2SkipChartPaths(cfg *InfraConfigV2) error {
+	var errs []error
+
+	if cfg.Cluster.KubeContext == "" {
+		errs = append(errs, fmt.Errorf("cluster.kubeContext is required"))
+	}
+	if len(cfg.Apps) == 0 {
+		errs = append(errs, fmt.Errorf("at least one app is required"))
+	}
+
+	seen := make(map[string]bool)
+	for _, app := range cfg.Apps {
+		if app.Name != "" && seen[app.Name] {
+			errs = append(errs, fmt.Errorf("duplicate app name: %q", app.Name))
+		}
+		seen[app.Name] = true
+	}
+
+	for _, app := range cfg.Apps {
+		if app.Name == "" {
+			errs = append(errs, fmt.Errorf("app has empty name"))
+		}
+		if app.Chart == "" {
+			errs = append(errs, fmt.Errorf("app %q: chart is required", app.Name))
 		}
 	}
 

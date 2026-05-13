@@ -27,7 +27,7 @@ func newDiffCmd(flags *RootFlags) *cobra.Command {
 			"(https://github.com/databus23/helm-diff). When --allow-no-cluster\n" +
 			"is set and the plugin is missing, the command prints a warning\n" +
 			"and exits 0 so it remains usable in offline/CI environments.",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runDiff(cmd, flags, df)
 		},
 	}

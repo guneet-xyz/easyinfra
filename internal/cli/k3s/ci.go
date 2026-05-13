@@ -61,7 +61,7 @@ func newCIValidateCmd(flags *RootFlags) *cobra.Command {
 		Short: "Run all offline checks suitable for CI (no cluster required)",
 		Long: "Run config validation, doctor checks (no-cluster), post-renderer probe, " +
 			"and offline render of every app. Suitable for CI pipelines.",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runCIValidate(cmd, flags, cf)
 		},
 	}
@@ -240,12 +240,12 @@ func finishCIValidate(out io.Writer, report ValidateReport, cf *ciValidateFlags)
 
 func writeCIValidateText(out io.Writer, report ValidateReport) {
 	for _, s := range report.Steps {
-		fmt.Fprintf(out, "%s\t%s\t%s\n", ciStatusSymbol(s.Status), s.Name, s.Message)
+		_, _ = fmt.Fprintf(out, "%s\t%s\t%s\n", ciStatusSymbol(s.Status), s.Name, s.Message)
 	}
 	if report.Failed {
-		fmt.Fprintln(out, "ci validate: FAILED")
+		_, _ = fmt.Fprintln(out, "ci validate: FAILED")
 	} else {
-		fmt.Fprintln(out, "ci validate: ok")
+		_, _ = fmt.Fprintln(out, "ci validate: ok")
 	}
 }
 

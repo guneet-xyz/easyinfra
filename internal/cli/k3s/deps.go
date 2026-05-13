@@ -35,7 +35,7 @@ func newDepsCheckCmd(flags *RootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "check",
 		Short: "Check helm chart dependencies (Chart.lock freshness, file:// deps)",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runDepsCheck(cmd, flags, df)
 		},
 	}
@@ -50,7 +50,7 @@ func newDepsUpdateCmd(flags *RootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update",
 		Short: "Run `helm dependency update` for chart(s)",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runDepsUpdate(cmd, flags, df)
 		},
 	}

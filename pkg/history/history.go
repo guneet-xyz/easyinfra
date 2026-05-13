@@ -37,15 +37,15 @@ type helmHistoryJSON struct {
 	Description string    `json:"description"`
 }
 
-// History shells `helm history <release> -n <namespace> -o json --max <max>`
+// History shells `helm history <release> -n <namespace> -o json --max <maxRevisions>`
 // and parses the JSON output. Returns revisions sorted by revision number
 // descending (newest first). Returns (nil, ErrNotFound) when the release
 // does not exist.
-func History(ctx context.Context, runner exec.Runner, release, namespace string, max int) ([]Revision, error) {
-	if max <= 0 {
-		max = 10
+func History(ctx context.Context, runner exec.Runner, release, namespace string, maxRevisions int) ([]Revision, error) {
+	if maxRevisions <= 0 {
+		maxRevisions = 10
 	}
-	args := []string{"history", release, "-n", namespace, "-o", "json", "--max", strconv.Itoa(max)}
+	args := []string{"history", release, "-n", namespace, "-o", "json", "--max", strconv.Itoa(maxRevisions)}
 	stdout, stderr, err := runner.Run(ctx, "helm", args...)
 	if err != nil {
 		if strings.Contains(stderr, "release: not found") {

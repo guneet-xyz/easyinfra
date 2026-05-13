@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// BackupEntry describes a single timestamped backup directory.
-type BackupEntry struct {
+// Entry describes a single timestamped backup directory.
+type Entry struct {
 	Timestamp   string   `json:"timestamp"`
 	Apps        []string `json:"apps"`
 	SizeBytes   int64    `json:"sizeBytes"`
@@ -17,10 +17,10 @@ type BackupEntry struct {
 }
 
 // List enumerates backup directories under localDir and returns one
-// BackupEntry per timestamped subdirectory, sorted newest-first by
+// Entry per timestamped subdirectory, sorted newest-first by
 // timestamp. Subdirectories whose names do not match the timestamp
 // format "2006-01-02_150405" are skipped.
-func List(localDir string) ([]BackupEntry, error) {
+func List(localDir string) ([]Entry, error) {
 	entries, err := os.ReadDir(localDir)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -29,7 +29,7 @@ func List(localDir string) ([]BackupEntry, error) {
 		return nil, fmt.Errorf("reading backup dir %s: %w", localDir, err)
 	}
 
-	var result []BackupEntry
+	var result []Entry
 	for _, e := range entries {
 		if !e.IsDir() {
 			continue
@@ -77,8 +77,8 @@ func looksLikeTimestamp(name string) bool {
 	return true
 }
 
-func scanBackupDir(dir, ts string) (BackupEntry, error) {
-	entry := BackupEntry{Timestamp: ts}
+func scanBackupDir(dir, ts string) (Entry, error) {
+	entry := Entry{Timestamp: ts}
 
 	files, err := os.ReadDir(dir)
 	if err != nil {

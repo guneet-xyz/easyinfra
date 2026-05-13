@@ -35,7 +35,7 @@ func newBackupListCmd(flags *RootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "List local backups",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runBackupList(cmd, flags, asJSON)
 		},
 	}
@@ -58,7 +58,7 @@ func runBackupList(cmd *cobra.Command, flags *RootFlags, asJSON bool) error {
 		return err
 	}
 
-	var entries []backup.BackupEntry
+	var entries []backup.Entry
 	if cfg.Backup.LocalDir != "" {
 		entries, err = backup.List(cfg.Backup.LocalDir)
 		if err != nil {
@@ -70,7 +70,7 @@ func runBackupList(cmd *cobra.Command, flags *RootFlags, asJSON bool) error {
 
 	if asJSON {
 		if entries == nil {
-			entries = []backup.BackupEntry{}
+			entries = []backup.Entry{}
 		}
 		enc := json.NewEncoder(out)
 		enc.SetIndent("", "  ")
@@ -281,7 +281,7 @@ func newBackupPruneCmd(flags *RootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "prune",
 		Short: "Delete old local backups according to a retention policy",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runBackupPrune(cmd, flags, keep, olderThan, dryRun)
 		},
 	}

@@ -82,13 +82,13 @@ func ExecuteWith(ctx context.Context, op *Operation, runner exec.Runner, dryRun 
 		out = os.Stdout
 	}
 	if dryRun {
-		fmt.Fprintf(out, "backup plan (timestamp=%s):\n", op.Timestamp)
+		_, _ = fmt.Fprintf(out, "backup plan (timestamp=%s):\n", op.Timestamp)
 		for _, app := range op.Apps {
-			fmt.Fprintf(out, "  app=%s namespace=%s\n", app.AppName, app.Namespace)
-			fmt.Fprintf(out, "    remote: %s\n", app.RemotePath)
-			fmt.Fprintf(out, "    local:  %s\n", app.LocalTarget)
+			_, _ = fmt.Fprintf(out, "  app=%s namespace=%s\n", app.AppName, app.Namespace)
+			_, _ = fmt.Fprintf(out, "    remote: %s\n", app.RemotePath)
+			_, _ = fmt.Fprintf(out, "    local:  %s\n", app.LocalTarget)
 			for _, pvc := range app.PVCs {
-				fmt.Fprintf(out, "    pvc:    %s\n", pvc)
+				_, _ = fmt.Fprintf(out, "    pvc:    %s\n", pvc)
 			}
 		}
 		return nil

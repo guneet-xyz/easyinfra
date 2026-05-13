@@ -3,7 +3,9 @@ package config
 import "gopkg.in/yaml.v3"
 
 const (
+	// APIVersionV1 is the legacy empty apiVersion for infra.yaml files.
 	APIVersionV1 = ""
+	// APIVersionV2 is the current apiVersion for infra.yaml files.
 	APIVersionV2 = "easyinfra/v2"
 )
 

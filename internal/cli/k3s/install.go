@@ -45,7 +45,7 @@ func loadConfigV2(flags *RootFlags) (*config.InfraConfigV2, string, error) {
 		}
 		cfgPath = p
 	}
-	cfg, err := config.LoadV2(cfgPath)
+	cfg, err := config.LoadV2SkipChartPaths(cfgPath)
 	if err != nil {
 		return nil, "", err
 	}
@@ -109,12 +109,16 @@ func prepareOp(cmd *cobra.Command, flags *RootFlags, args []string, all bool) (*
 	if err != nil {
 		return nil, err
 	}
-	apps, err := selectOpAppsV2(cfg, args, all)
-	if err != nil {
-		return nil, err
-	}
 	runner := newRunner(cmd, flags)
 	if err := config.VerifyKubeContextV2(cmd.Context(), cfg, runner, flags.ConfirmContext); err != nil {
+		return nil, err
+	}
+	// Now validate chart paths after context check
+	if err := config.ValidateV2(cfg, baseDir); err != nil {
+		return nil, err
+	}
+	apps, err := selectOpAppsV2(cfg, args, all)
+	if err != nil {
 		return nil, err
 	}
 	return &opContext{

@@ -35,7 +35,7 @@ func newRenderCmd(flags *RootFlags) *cobra.Command {
 		Short: "Render charts to YAML manifests (offline-capable)",
 		Long: "Render Helm charts to plain Kubernetes YAML manifests using helm template.\n" +
 			"By default writes one file per app to the output directory.",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runRender(cmd, flags, rf)
 		},
 	}

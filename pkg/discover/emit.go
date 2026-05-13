@@ -1,4 +1,4 @@
-// Package discover: emit converts a Layout into a v2 infra.yaml document.
+// Package discover converts a Layout into a v2 infra.yaml document.
 package discover
 
 import (
