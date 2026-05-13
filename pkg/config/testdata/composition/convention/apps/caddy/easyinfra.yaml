@@ -1,0 +1,3 @@
+name: caddy
+chart: apps/caddy
+dependsOn: []

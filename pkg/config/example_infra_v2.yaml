@@ -1,0 +1,68 @@
+apiVersion: easyinfra/v2
+cluster:
+  name: pax
+  type: k3s
+  kubeContext: pax
+defaults:
+  postRenderer:
+    command: obscuro
+    args:
+      - inject
+  valueFiles:
+    - values-shared.yaml
+rendering:
+  allowMissingCluster: true
+  postRendererInCI: skip
+  outputDir: .render
+restore:
+  overwrite: prompt
+backup:
+  remoteHost: pax
+  remoteTmp: /tmp/k3s-backups
+  localDir: backups
+  retention:
+    keep: 14
+phases:
+  - name: core
+    apps: [caddy, registry]
+  - name: workloads
+    apps: [walls, headlamp, litellm, openwebui, infisical, portainer, homepage, tailscale, demo]
+apps:
+  - name: caddy
+    chart: apps/caddy
+    pvcs:
+      - caddy-data
+  - name: registry
+    chart: apps/registry
+    pvcs:
+      - registry-data
+  - name: walls
+    chart: apps/walls
+    dependsOn:
+      - caddy
+      - registry
+    pvcs:
+      - walls-postgres-data
+  - name: headlamp
+    chart: apps/headlamp
+  - name: litellm
+    chart: apps/litellm
+    pvcs:
+      - litellm-data
+      - litellm-postgres-data
+  - name: openwebui
+    chart: apps/openwebui
+    pvcs:
+      - openwebui-data
+  - name: infisical
+    chart: apps/infisical
+    pvcs:
+      - infisical-postgres-data
+  - name: portainer
+    chart: apps/portainer
+  - name: homepage
+    chart: apps/homepage
+  - name: tailscale
+    chart: apps/tailscale
+  - name: demo
+    chart: apps/demo

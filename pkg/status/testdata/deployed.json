@@ -1,0 +1,1 @@
+{"name":"caddy","info":{"first_deployed":"2024-01-01T00:00:00Z","last_deployed":"2024-01-02T00:00:00Z","deleted":"","description":"Upgrade complete","status":"deployed","notes":""},"chart":{"metadata":{"name":"caddy","version":"0.1.0"}},"version":3,"namespace":"caddy"}

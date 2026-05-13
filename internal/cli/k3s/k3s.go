@@ -30,11 +30,20 @@ func NewK3sCmd(flags *RootFlags) *cobra.Command {
 	}
 	cmd.AddCommand(
 		newValidateCmd(flags),
+		newRenderCmd(flags),
+		newDiffCmd(flags),
 		newBackupCmd(flags),
 		newRestoreCmd(flags),
 		newInstallCmd(flags),
 		newUpgradeCmd(flags),
 		newUninstallCmd(flags),
+		newCICmd(flags),
+		newDepsCmd(flags),
+		newDiscoverCmd(flags),
+		newHistoryCmd(flags),
+		newStatusCmd(flags),
+		newRollbackCmd(flags),
+		newMigrateCmd(flags),
 	)
 	return cmd
 }

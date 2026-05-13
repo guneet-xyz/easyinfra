@@ -1,0 +1,5 @@
+apps:
+  - name: alpha
+    chart: ./charts/alpha
+    namespace: alpha
+    order: 10

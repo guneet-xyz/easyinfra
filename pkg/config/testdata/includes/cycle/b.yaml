@@ -1,0 +1,7 @@
+includes:
+  - a.yaml
+apps:
+  - name: cyc-b
+    chart: ./charts/b
+    namespace: b
+    order: 2

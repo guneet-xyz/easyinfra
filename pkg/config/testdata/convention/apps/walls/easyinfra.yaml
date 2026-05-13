@@ -1,0 +1,5 @@
+name: walls
+chart: apps/walls
+dependsOn: []
+valueFiles:
+  - values.yaml

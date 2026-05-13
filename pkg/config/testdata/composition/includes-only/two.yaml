@@ -1,0 +1,5 @@
+apps:
+  - name: beta
+    chart: ./charts/beta
+    namespace: beta
+    order: 20

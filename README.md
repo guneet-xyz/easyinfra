@@ -53,11 +53,26 @@ easyinfra k3s install --all
 | `easyinfra update` | Pull latest changes in infra repo | `easyinfra update` |
 | `easyinfra upgrade` | Self-upgrade the CLI binary | `easyinfra upgrade --check` |
 | `easyinfra version` | Print version, commit, build date | `easyinfra version` |
+| `easyinfra doctor` | Run preflight checks (helm, kubectl, ssh, config, cluster) | `easyinfra doctor` |
 | `easyinfra k3s install <app\|--all>` | Install app(s) via `helm install` | `easyinfra k3s install --all` |
 | `easyinfra k3s upgrade <app\|--all>` | Upgrade app(s) via `helm upgrade` | `easyinfra k3s upgrade myapp` |
 | `easyinfra k3s uninstall <app\|--all>` | Uninstall app(s) via `helm uninstall` | `easyinfra k3s uninstall --all --yes` |
 | `easyinfra k3s validate [app...]` | Render charts with `helm template` | `easyinfra k3s validate` |
+| `easyinfra k3s render <app\|--all>` | Render manifests offline to stdout or a directory | `easyinfra k3s render --all --out ./out` |
+| `easyinfra k3s diff <app\|--all>` | Show `helm diff` between current release and desired state | `easyinfra k3s diff myapp` |
+| `easyinfra k3s status <app\|--all>` | Show release status from `helm status` | `easyinfra k3s status --all` |
+| `easyinfra k3s history <app>` | Show release revision history | `easyinfra k3s history myapp` |
+| `easyinfra k3s rollback <app> [revision]` | Roll a release back to a previous revision | `easyinfra k3s rollback myapp 3` |
+| `easyinfra k3s deps check <app\|--all>` | Verify chart dependencies are present and locked | `easyinfra k3s deps check --all` |
+| `easyinfra k3s deps update <app\|--all>` | Run `helm dependency update` for chart(s) | `easyinfra k3s deps update myapp` |
+| `easyinfra k3s discover <path>` | Auto-discover charts under a path and print suggested config | `easyinfra k3s discover ./apps` |
+| `easyinfra k3s migrate explain` | Print mapping table from legacy fields to current schema | `easyinfra k3s migrate explain` |
+| `easyinfra k3s migrate generate-config <path>` | Generate an `infra.yaml` skeleton from a charts directory | `easyinfra k3s migrate generate-config ./apps` |
+| `easyinfra k3s ci validate` | Strict validation suitable for CI (fails on any drift or warning) | `easyinfra k3s ci validate` |
 | `easyinfra k3s backup [app...]` | Backup PVCs over SSH/SCP | `easyinfra k3s backup` |
+| `easyinfra k3s backup list` | List local backup snapshots | `easyinfra k3s backup list` |
+| `easyinfra k3s backup prune` | Prune old backup snapshots by age or count | `easyinfra k3s backup prune --keep 5` |
+| `easyinfra k3s backup recover <timestamp>` | Recover artifacts from a failed or partial backup run | `easyinfra k3s backup recover 2024-01-01_120000` |
 | `easyinfra k3s restore [app...]` | Restore PVCs from a backup snapshot | `easyinfra k3s restore --timestamp 2024-01-01_120000` |
 
 ### Global flags

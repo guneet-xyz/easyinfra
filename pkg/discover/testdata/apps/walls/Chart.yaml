@@ -1,0 +1,8 @@
+apiVersion: v2
+name: walls
+type: application
+version: 0.1.0
+dependencies:
+  - name: postgres
+    version: "0.1.0"
+    repository: "file://../../shared/postgres"

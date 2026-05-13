@@ -1,0 +1,37 @@
+apiVersion: easyinfra/v2
+cluster:
+  name: pax
+  type: k3s
+  kubeContext: pax
+defaults:
+  postRenderer:
+    command: obscuro
+    args: [inject]
+  valueFiles:
+    - values-shared.yaml
+rendering:
+  allowMissingCluster: true
+  postRendererInCI: skip
+  outputDir: .render
+restore:
+  overwrite: prompt
+backup:
+  remoteHost: pax
+  remoteTmp: /tmp/k3s-backups
+  localDir: backups
+  retention:
+    keep: 14
+    olderThan: 720h
+phases:
+  - name: core
+    apps: [caddy]
+  - name: workloads
+    apps: [walls]
+apps:
+  - name: caddy
+    chart: apps/caddy
+    pvcs: [caddy-data]
+  - name: walls
+    chart: apps/walls
+    dependsOn: [caddy]
+    pvcs: [walls-postgres-data]

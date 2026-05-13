@@ -99,7 +99,7 @@ func (m *Manager) Run(ctx context.Context, apps []config.AppConfig) (string, err
 		if len(app.PVCs) == 0 {
 			continue
 		}
-		if err := m.backupApp(ctx, app, remoteTmpTS); err != nil {
+		if err := m.backupApp(ctx, app, remoteTmpTS, localDir); err != nil {
 			errs = append(errs, fmt.Errorf("backup %s: %w", app.Name, err))
 		}
 	}
@@ -119,10 +119,14 @@ func (m *Manager) Run(ctx context.Context, apps []config.AppConfig) (string, err
 	return timestamp, nil
 }
 
-func (m *Manager) backupApp(ctx context.Context, app config.AppConfig, remoteTmpTS string) error {
+func (m *Manager) backupApp(ctx context.Context, app config.AppConfig, remoteTmpTS, localDir string) error {
 	state, err := m.saveReplicas(ctx, app.Namespace)
 	if err != nil {
 		return err
+	}
+
+	if err := persistReplicaState(localDir, state); err != nil {
+		return fmt.Errorf("persisting replica state: %w", err)
 	}
 
 	deployments, err := m.K8s.ListDeployments(ctx, app.Namespace)
@@ -150,9 +154,30 @@ func (m *Manager) backupApp(ctx context.Context, app config.AppConfig, remoteTmp
 
 	if err := m.scaleUp(ctx, state); err != nil {
 		tarErrs = append(tarErrs, fmt.Errorf("restoring replicas: %w", err))
+		if writeErr := writeStateFile(localDir, stateScaleUpFail); writeErr != nil {
+			tarErrs = append(tarErrs, fmt.Errorf("writing recovery state file: %w", writeErr))
+		}
 	}
 
 	return errors.Join(tarErrs...)
+}
+
+// persistReplicaState merges (does not overwrite) per-app counts into
+// localDir/replicas.json so one file describes all apps in this backup.
+func persistReplicaState(localDir string, state *replicaState) error {
+	if state == nil {
+		return nil
+	}
+	dir := localDir
+	existing, err := readReplicaState(dir)
+	if err != nil {
+		existing = &ReplicaState{Deployments: map[string]int32{}}
+	}
+	for name, n := range state.replicas {
+		key := state.namespace + "/" + name
+		existing.Deployments[key] = int32(n)
+	}
+	return writeReplicaState(dir, existing)
 }
 
 func (m *Manager) resolvePVCPath(ctx context.Context, namespace, pvcName string) (string, error) {

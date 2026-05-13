@@ -1,0 +1,7 @@
+includes:
+  - a.yaml
+apps:
+  - name: b-app
+    chart: ./charts/b
+    namespace: b
+    order: 20

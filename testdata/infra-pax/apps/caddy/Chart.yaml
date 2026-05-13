@@ -1,0 +1,6 @@
+apiVersion: v2
+name: caddy
+description: Test chart caddy
+type: application
+version: 0.1.0
+appVersion: "1.0"

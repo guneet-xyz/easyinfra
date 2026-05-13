@@ -1,0 +1,9 @@
+apiVersion: easyinfra/v2
+cluster:
+  name: test
+  type: k3s
+  kubeContext: test-ctx
+backup:
+  remoteHost: backup.example.com
+  remoteTmp: /tmp/backup
+  localDir: ./backups

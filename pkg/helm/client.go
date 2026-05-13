@@ -100,10 +100,39 @@ func (c *Client) Uninstall(ctx context.Context, release, namespace string) error
 	return nil
 }
 
+// Rollback runs helm rollback for the given release.
+// If revision is 0, the revision argument is omitted and helm rolls back
+// to the previous revision.
+func (c *Client) Rollback(ctx context.Context, release, namespace string, revision int, force, wait bool) error {
+	args := append(c.globalArgs(), "rollback", release)
+	if revision > 0 {
+		args = append(args, fmt.Sprintf("%d", revision))
+	}
+	args = append(args, "-n", namespace)
+	if force {
+		args = append(args, "--force")
+	}
+	if wait {
+		args = append(args, "--wait")
+	}
+	_, stderr, err := c.Runner.Run(ctx, "helm", args...)
+	if err != nil {
+		return fmt.Errorf("helm rollback %s: %w\n%s", release, err, stderr)
+	}
+	return nil
+}
+
 // Template runs helm template and returns the rendered YAML.
 func (c *Client) Template(ctx context.Context, chart string, valueFiles []string) (string, error) {
+	return c.TemplateWithPostRenderer(ctx, chart, valueFiles, nil)
+}
+
+// TemplateWithPostRenderer runs helm template with an optional post-renderer.
+// If pr is nil, no --post-renderer flag is passed.
+func (c *Client) TemplateWithPostRenderer(ctx context.Context, chart string, valueFiles []string, pr *config.PostRenderer) (string, error) {
 	args := append(c.globalArgs(), "template", chart)
 	args = append(args, c.buildValueFileArgs(valueFiles)...)
+	args = append(args, c.buildPostRendererArgs(pr)...)
 	stdout, stderr, err := c.Runner.Run(ctx, "helm", args...)
 	if err != nil {
 		return "", fmt.Errorf("helm template %s: %w\n%s", chart, err, stderr)

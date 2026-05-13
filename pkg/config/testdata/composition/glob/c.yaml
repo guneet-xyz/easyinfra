@@ -1,0 +1,5 @@
+apps:
+  - name: gamma
+    chart: ./charts/gamma
+    namespace: gamma
+    order: 30

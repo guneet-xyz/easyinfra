@@ -2,6 +2,7 @@ package cli
 
 import (
 	"github.com/guneet-xyz/easyinfra/internal/cli/k3s"
+	"github.com/guneet-xyz/easyinfra/pkg/config"
 	"github.com/spf13/cobra"
 )
 
@@ -10,6 +11,7 @@ type rootFlags struct {
 	dryRun         bool
 	verbose        bool
 	confirmContext bool
+	quiet          bool
 }
 
 func newRootCmd(version, commit, date string) *cobra.Command {
@@ -30,14 +32,17 @@ driven by infra.yaml in your infrastructure repository.`,
 	cmd.PersistentFlags().BoolVar(&flags.dryRun, "dry-run", false, "print commands without executing them")
 	cmd.PersistentFlags().BoolVar(&flags.verbose, "verbose", false, "enable verbose output")
 	cmd.PersistentFlags().BoolVar(&flags.confirmContext, "confirm-context", false, "proceed even if kubeContext in infra.yaml does not match current context")
+	cmd.PersistentFlags().BoolVar(&flags.quiet, "quiet", false, "suppress deprecation warnings")
 
 	cmd.AddCommand(newVersionCmd(version, commit, date))
 	cmd.AddCommand(newInitCmd(flags), newUpdateCmd(flags))
+	cmd.AddCommand(newDoctorCmd(flags))
 	cmd.AddCommand(newUpgradeCmd(version))
 
 	k3sFlags := &k3s.RootFlags{}
 	k3sCmd := k3s.NewK3sCmd(k3sFlags)
 	k3sCmd.PersistentPreRunE = func(_ *cobra.Command, _ []string) error {
+		config.Quiet = flags.quiet
 		k3sFlags.Config = flags.config
 		k3sFlags.DryRun = flags.dryRun
 		k3sFlags.Verbose = flags.verbose

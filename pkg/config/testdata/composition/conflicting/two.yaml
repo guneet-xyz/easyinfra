@@ -1,0 +1,5 @@
+apps:
+  - name: shared
+    chart: ./charts/shared-other
+    namespace: shared
+    order: 20

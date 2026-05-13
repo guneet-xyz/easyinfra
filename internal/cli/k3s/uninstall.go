@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"slices"
 	"strings"
 
-	"github.com/guneet-xyz/easyinfra/pkg/config"
 	"github.com/spf13/cobra"
 )
 
@@ -41,7 +41,8 @@ func runUninstall(cmd *cobra.Command, flags *RootFlags, args []string, f *uninst
 			_, _ = fmt.Fprintln(cmd.OutOrStdout(), "Uninstall cancelled")
 			return nil
 		}
-		apps = reverseApps(apps)
+		apps = slices.Clone(apps)
+		slices.Reverse(apps)
 	}
 	ctx := cmd.Context()
 	if ctx == nil {
@@ -65,12 +66,4 @@ func confirmAll(cmd *cobra.Command) bool {
 	}
 	resp := strings.TrimSpace(scanner.Text())
 	return resp == "y" || resp == "Y"
-}
-
-func reverseApps(in []config.AppConfig) []config.AppConfig {
-	out := make([]config.AppConfig, len(in))
-	for i, a := range in {
-		out[len(in)-1-i] = a
-	}
-	return out
 }

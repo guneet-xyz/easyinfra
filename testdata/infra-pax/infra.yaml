@@ -1,0 +1,13 @@
+apiVersion: easyinfra/v2
+cluster:
+  kubeContext: default
+  defaultNamespace: default
+backup:
+  remoteHost: ""
+  remoteTmp: /tmp/easyinfra
+  localDir: ./backups
+apps:
+  - name: caddy
+    chart: apps/caddy
+    namespace: caddy
+    order: 1

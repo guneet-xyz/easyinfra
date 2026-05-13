@@ -1,0 +1,24 @@
+apiVersion: easyinfra/v2
+cluster:
+  name: pax
+  type: k3s
+  kubeContext: pax
+defaults:
+  postRenderer:
+    command: obscuro
+    args: [inject]
+  valueFiles:
+    - values-shared.yaml
+backup:
+  remoteHost: pax
+  remoteTmp: /tmp/k3s-backups
+  localDir: backups
+apps:
+  - name: caddy
+    chart: apps/caddy
+    dependsOn: []
+    pvcs: [caddy-data]
+  - name: walls
+    chart: apps/walls
+    dependsOn: [caddy]
+    pvcs: [walls-postgres-data]
